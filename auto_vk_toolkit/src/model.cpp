@@ -532,6 +532,32 @@ namespace avk
 				result.mLightmapTexRotation = static_cast<float>(uvTransformVal.mRotation);
 			}
 		}
+		if (AI_SUCCESS == aimat->GetTexture(aiTextureType_METALNESS, 0, &strVal, &texMapping, &uvSetIndex, nullptr, nullptr, texMappingModes.data())) {
+			if (texMapping != aiTextureMapping_UV) {
+				assert(false);
+			}
+
+			// assert that it is a combined metalness + roughness + ambient occlusion texture
+			std::string texturePath = avk::combine_paths(avk::extract_base_path(mModelPath), strVal.data);
+			assert(result.mLightmapTex.empty() || result.mLightmapTex = texturePath);
+
+			result.mLightmapTex = texturePath;
+			result.mLightmapTexUvSet = static_cast<uint32_t>(uvSetIndex);
+			result.mLightmapTexBorderHandlingMode[0] = toAvkBorderHandling(texMappingModes[0]);
+			result.mLightmapTexBorderHandlingMode[1] = toAvkBorderHandling(texMappingModes[1]);
+
+			if (AI_SUCCESS == aimat->Get(AI_MATKEY_UVTRANSFORM(aiTextureType_METALNESS, 0), uvTransformVal)) {
+				result.mLightmapTexOffsetTiling[0] = uvTransformVal.mTranslation.x;
+				result.mLightmapTexOffsetTiling[1] = uvTransformVal.mTranslation.y;
+				if (avk::equals_one_of(result.mLightmapTexBorderHandlingMode[0], avk::border_handling_mode::repeat, avk::border_handling_mode::mirrored_repeat)) {
+					result.mLightmapTexOffsetTiling[2] = uvTransformVal.mScaling.x;
+				}
+				if (avk::equals_one_of(result.mLightmapTexBorderHandlingMode[1], avk::border_handling_mode::repeat, avk::border_handling_mode::mirrored_repeat)) {
+					result.mLightmapTexOffsetTiling[3] = uvTransformVal.mScaling.y;
+				}
+				result.mLightmapTexRotation = static_cast<float>(uvTransformVal.mRotation);
+			}
+		}
 
 		mMaterialConfigPerMesh[aMeshIndex] = result; // save
 		return result;
