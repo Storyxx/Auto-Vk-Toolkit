@@ -539,7 +539,7 @@ namespace avk
 
 			// assert that it is empty or a combined metalness + roughness + ambient occlusion texture
 			std::string texturePath = avk::combine_paths(avk::extract_base_path(mModelPath), strVal.data);
-			assert(result.mLightmapTex.empty() || result.mLightmapTex = texturePath);
+			assert(result.mLightmapTex.empty() || result.mLightmapTex == texturePath);
 
 			result.mLightmapTex = texturePath;
 			result.mLightmapTexUvSet = static_cast<uint32_t>(uvSetIndex);
