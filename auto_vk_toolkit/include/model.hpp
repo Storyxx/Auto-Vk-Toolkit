@@ -5,8 +5,6 @@
 #include "lightsource.hpp"
 #include "material_config.hpp"
 
-#include <auto_vk_toolkit.hpp>
-
 namespace avk
 {
 	class model_t
