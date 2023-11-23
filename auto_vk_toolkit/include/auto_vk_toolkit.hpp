@@ -1,6 +1,8 @@
 #pragma once
 // ReSharper disable CppUnusedIncludeDirective
 
+#define _SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING
+
 // ------ commonly used stuff from the standard library ------
 #include <vector>
 #include <deque>
