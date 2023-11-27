@@ -299,6 +299,12 @@ namespace avk
 		if (AI_SUCCESS == aimat->Get(AI_MATKEY_REFLECTIVITY, floatVal)) {
 			result.mReflectivity = floatVal;
 		}
+		if (AI_SUCCESS == aimat->Get(AI_MATKEY_METALLIC_FACTOR, floatVal)) {
+			result.mMetallic = floatVal;
+		}
+		if (AI_SUCCESS == aimat->Get(AI_MATKEY_ROUGHNESS_FACTOR, floatVal)) {
+			result.mRoughness = floatVal;
+		}
 		
 		// TODO: reading aiTextureMapMode (last parameter) corrupts stack for some .dae files (like "level01c.dae")
 		if (AI_SUCCESS == aimat->GetTexture(aiTextureType_DIFFUSE, 0, &strVal, &texMapping, &uvSetIndex, nullptr, nullptr, texMappingModes.data())) {
