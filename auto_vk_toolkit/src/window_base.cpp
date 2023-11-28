@@ -11,6 +11,7 @@ namespace avk
 		, mMonitor()
 		, mIsInputEnabled(true)
 		, mRequestedSize{ 512, 512 }
+		, mWindowPositionBeforeFullscreen{ 100, 100 }
 		, mCursorPosition{ 0.0, 0.0 }
 		, mResolution{ 0, 0 }
 		, mCursorMode{ cursor::arrow_cursor }
@@ -33,6 +34,7 @@ namespace avk
 		, mMonitor(std::move(other.mMonitor))
 		, mIsInputEnabled(std::move(other.mIsInputEnabled))
 		, mRequestedSize(std::move(other.mRequestedSize))
+		, mWindowPositionBeforeFullscreen(std::move(other.mWindowPositionBeforeFullscreen))
 		, mCursorPosition(std::move(other.mCursorPosition))
 		, mResolution(std::move(other.mResolution))
 		, mCursorMode(std::move(other.mCursorMode))
@@ -56,6 +58,7 @@ namespace avk
 		mMonitor = std::move(other.mMonitor);
 		mIsInputEnabled = std::move(other.mIsInputEnabled);
 		mRequestedSize = std::move(other.mRequestedSize);
+		mWindowPositionBeforeFullscreen = std::move(other.mWindowPositionBeforeFullscreen);
 		mCursorPosition = std::move(other.mCursorPosition);
 		mResolution = std::move(other.mResolution);
 		mCursorMode = std::move(other.mCursorMode);
@@ -140,9 +143,16 @@ namespace avk
 	{
 		if (is_alive()) {
 			context().dispatch_to_main_thread([this, pOnWhichMonitor]() {
+				int prevWidth = 0, prevHeight = 0;
+				glfwGetWindowPos(handle()->mHandle, &prevWidth, &prevHeight);
+				mWindowPositionBeforeFullscreen = {prevWidth, prevHeight};
+
+				const GLFWvidmode *mode = glfwGetVideoMode(pOnWhichMonitor.mHandle);
+				int width = mode->width;
+				int height = mode->height;
 				glfwSetWindowMonitor(handle()->mHandle, pOnWhichMonitor.mHandle,
 									 0, 0,
-									 mRequestedSize.mWidth, mRequestedSize.mHeight, // TODO: Support different resolutions or query the current resolution
+									 width, height,
 									 GLFW_DONT_CARE); // TODO: Support different refresh rates
 			});
 		}
@@ -155,11 +165,9 @@ namespace avk
 	{
 		if (is_alive()) {
 			context().dispatch_to_main_thread([this]() {
-				int xpos = 10, ypos = 10;
-				glfwGetWindowPos(handle()->mHandle, &xpos, &ypos);
 				glfwSetWindowMonitor(handle()->mHandle, nullptr,
-									 xpos, ypos,
-									 mRequestedSize.mWidth, mRequestedSize.mHeight, // TODO: Support different resolutions or query the current resolution
+									 mWindowPositionBeforeFullscreen.x, mWindowPositionBeforeFullscreen.y,
+									 mRequestedSize.mWidth, mRequestedSize.mHeight,
 									 GLFW_DONT_CARE); // TODO: Support different refresh rates
 			});
 		}

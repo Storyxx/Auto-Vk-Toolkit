@@ -138,6 +138,9 @@ namespace avk
 		// The requested window size which only has effect BEFORE the window was created
 		window_size mRequestedSize;
 
+		// The position of the top left corner of the window before it was set into fullscreen mode
+		glm::uvec2 mWindowPositionBeforeFullscreen;
+
 		// The position of the cursor
 		glm::dvec2 mCursorPosition;
 
