@@ -31,6 +31,8 @@ namespace avk
 	 *		float mReflectivity;
 	 *		float mMetallic;
 	 *		float mSmoothness;
+	 * 
+	 *		float mTransmission;
 	 *
 	 *		float mSheen;
 	 *		float mThickness;

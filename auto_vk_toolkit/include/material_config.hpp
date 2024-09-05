@@ -29,6 +29,7 @@ namespace avk
 			, mReflectivity{ 0.f }
 			, mMetallic{ 0.f }
 			, mSmoothness{ 0.f }
+			, mTransmission{ 0.f }
 			, mSheen{ 0.f }
 			, mThickness{ 0.f }
 			, mRoughness{ 0.f }
@@ -130,6 +131,8 @@ namespace avk
 		float mReflectivity;
 		float mMetallic;
 		float mSmoothness;
+
+		float mTransmission;
 
 		float mSheen;
 		float mThickness;
@@ -234,10 +237,7 @@ namespace avk
 		if (left.mMetallic						!= right.mMetallic						) return false;
 		if (left.mSmoothness					!= right.mSmoothness					) return false;
 
-		if (left.mRefractionIndex				!= right.mRefractionIndex				) return false;
-		if (left.mReflectivity					!= right.mReflectivity					) return false;
-		if (left.mMetallic						!= right.mMetallic						) return false;
-		if (left.mSmoothness					!= right.mSmoothness					) return false;
+		if (left.mTransmission					!= right.mTransmission					) return false;
 
 		if (left.mSheen							!= right.mSheen							) return false;
 		if (left.mThickness						!= right.mThickness						) return false;
@@ -349,6 +349,7 @@ namespace std // Inject hash for `avk::material_config` into std::
 				o.mReflectivity,
 				o.mMetallic,
 				o.mSmoothness,
+				o.mTransmission,
 				o.mSheen,
 				o.mThickness,
 				o.mRoughness,

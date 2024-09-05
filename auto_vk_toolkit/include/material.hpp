@@ -50,10 +50,7 @@ namespace avk
 		if (left.mMaterialConfig.mMetallic						!= right.mMaterialConfig.mMetallic						) return false;
 		if (left.mMaterialConfig.mSmoothness					!= right.mMaterialConfig.mSmoothness					) return false;
 
-		if (left.mMaterialConfig.mRefractionIndex				!= right.mMaterialConfig.mRefractionIndex				) return false;
-		if (left.mMaterialConfig.mReflectivity					!= right.mMaterialConfig.mReflectivity					) return false;
-		if (left.mMaterialConfig.mMetallic						!= right.mMaterialConfig.mMetallic						) return false;
-		if (left.mMaterialConfig.mSmoothness					!= right.mMaterialConfig.mSmoothness					) return false;
+		if (left.mMaterialConfig.mTransmission					!= right.mMaterialConfig.mTransmission					) return false;
 
 		if (left.mMaterialConfig.mSheen							!= right.mMaterialConfig.mSheen							) return false;
 		if (left.mMaterialConfig.mThickness						!= right.mMaterialConfig.mThickness						) return false;
@@ -124,6 +121,7 @@ namespace std // Inject hash for `avk::material` into std::
 				config.mReflectivity,
 				config.mMetallic,
 				config.mSmoothness,
+				config.mTransmission,
 				config.mSheen,
 				config.mThickness,
 				config.mRoughness,

@@ -28,6 +28,8 @@ namespace avk
 	 *		float mReflectivity;
 	 *		float mMetallic;
 	 *		float mSmoothness;
+	 *	
+	 *		float mTransmission;
 	 *		
 	 *		float mSheen;
 	 *		float mThickness;
@@ -90,6 +92,8 @@ namespace avk
 		alignas(4) float mMetallic;
 		alignas(4) float mSmoothness;
 
+		alignas(4) float mTransmission;
+
 		alignas(4) float mSheen;
 		alignas(4) float mThickness;
 		alignas(4) float mRoughness;
@@ -142,10 +146,7 @@ namespace avk
 		if (left.mMetallic						!= right.mMetallic						) return false;
 		if (left.mSmoothness					!= right.mSmoothness					) return false;
 
-		if (left.mRefractionIndex				!= right.mRefractionIndex				) return false;
-		if (left.mReflectivity					!= right.mReflectivity					) return false;
-		if (left.mMetallic						!= right.mMetallic						) return false;
-		if (left.mSmoothness					!= right.mSmoothness					) return false;
+		if (left.mTransmission					!= right.mTransmission					) return false;
 
 		if (left.mSheen							!= right.mSheen							) return false;
 		if (left.mThickness						!= right.mThickness						) return false;
@@ -214,6 +215,7 @@ namespace std // Inject hash for `avk::material_gpu_data` into std::
 				o.mReflectivity,
 				o.mMetallic,
 				o.mSmoothness,
+				o.mTransmission,
 				o.mSheen,
 				o.mThickness,
 				o.mRoughness,
